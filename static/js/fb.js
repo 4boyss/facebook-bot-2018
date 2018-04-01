@@ -5,21 +5,21 @@
   function triggerAuth(response) {
     FB.getLoginStatus(function(response) {
       const {accessToken, userID, signedRequest} = response.authResponse
-
+      const {account_linking_token, redirect_uri} = normal
+      
       console.log('triggerAuth');
       console.log(response);
 
       if(response.status !== 'connected') 
         return setStatusById('Please log into this app.')
 
-    //   return window.location.replace(`/login?accessToken=${accessToken}`);
+      return window.location.replace(`/login/fb-auth?accessToken=${accessToken}&account_linking_token=${account_linking_token}&redirect_uri=${redirect_uri}`);
     })
   }
   
   window.fbAsyncInit = function() {
-    console.log('2 ---------')
     FB.init({
-      appId      : window.FB_APP_ID,
+      appId      : FB_APP_ID,
       cookie     : true,  // enable cookies to allow the server to access 
                           // the session
       xfbml      : true,  // parse social plugins on this page
