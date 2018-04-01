@@ -99,6 +99,7 @@ body{
       var id = response.id
       var email = response.email
 
+      console.log(' -=-=-=-=-= 1 -=-=-=-=-=')
       console.log('response: ', response)
 
       document.getElementById('status').innerHTML =
@@ -107,8 +108,13 @@ body{
           // console.log(response.access_token);
           // document.getElementById('access_token').innerHTML = response.access_token;
           //redirect to age /videos 
+
+      console.log(' -=-=-=-=-= 2 -=-=-=-=-=')
+      console.log('response: ', response)
+
           if(response.access_token){
-            document.cookie = 'fbAccessToken='+response.access_token;
+            document.cookie = 'fbAccessToken='+response.access_token
+
             // window.location.replace(`/login/redirect?name=${name}&email=${email}&id=${id}`);
             // window.location.replace(`/static/privacypolicy.htm`);
           }
