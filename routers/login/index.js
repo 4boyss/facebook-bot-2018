@@ -17,12 +17,12 @@ router.get('/fb-auth', (req, res) => {
     console.log('1-=-=-=-= fb-auth -=-=-=-=')
 
     return verifyLinkingToken(account_linking_token)
-        .then(res => {
+        .then(response => {
             console.log('2 -=-=-=-= fb-auth -=-=-=-=')
 
             const content = `
             <pre> ${JSON.stringify(req.normal, null, 2)}</pre>
-            <pre> ${JSON.stringify(res, null, 2)}</pre>
+            <pre> ${JSON.stringify(response, null, 2)}</pre>
             `
             return res.send(content)
         })
