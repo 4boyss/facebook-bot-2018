@@ -1,20 +1,46 @@
 import TableHeader from '../../components/Table/TableHeader' 
+import EditableDiv from '../../components/Shared/EditableDiv' 
 import {formatDate} from '../../lib/date'
 const dataInit = require('./dataInit')
 
 const titleList = ['Spend', 'Category', 'User', 'CreatedAt']
 
 const { turnDateToStr, getBeforeDate } = require('../../lib/date')
+const { putCostApi } = require('./api')
 
 const agoDateStr = (agoNum) => turnDateToStr(getBeforeDate(agoNum))
 
 export default class Cost extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {costList: props.costList};
+    }
+
     static async getInitialProps ({req, res}) {
-        return dataInit({req, res})
+        return await dataInit({req, res})
     }
     
+    // onChange = (id, payload = {}) => {
+    //   console.log('-=-=-=-=-= onChange -=-=-=-=-=')
+    //   console.log('id : ', id)
+    //   console.log('payload : ', payload)
+    //   this.setState()
+    // }
+
+    onUpdate = (id, payload = {}) => {
+      console.log('1 -=-=-=-=-=-=-=-=-=-=-=-=')
+      console.log('onUpdate : ', payload)
+
+      return putCostApi({id, payload})
+      .then((result )=>{
+        console.log('2 -=-=-=-=-=-=-=-=-=-=-=-=')
+        console.log(result)
+      })
+
+    }
+
     render() {
-      const {costList = []} = this.props
+      const {costList = []} = this.state
       const _1Date = agoDateStr(1)
       const _3Date = agoDateStr(3)
       const _7Date = agoDateStr(7)
@@ -39,7 +65,17 @@ export default class Cost extends React.Component {
               costList.map((item, index)=> {
                 return <div className = "rTableRow" key={index}>
                   <div className="rTableCell">$ {item.cost}</div>
-                  <div className="rTableCell">{item.category}</div>
+                  {/* <div className="rTableCell">{item.category}</div> */}
+
+                  <div className="rTableCell">
+                    <EditableDiv
+                      field={'category'}
+                      data={item}
+                      // onChange={this.onChange}
+                      onUpdate={this.onUpdate}
+                    />
+                  </div>
+
                   <div className="rTableCell">{item.userId}</div>
                   <div className="rTableCell">{formatDate(new Date(item.createdAt))}</div>
                 </div>
