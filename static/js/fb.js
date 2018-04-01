@@ -3,15 +3,9 @@
   const setStatusById = (msg) => document.getElementById('status').innerHTML = msg
 
   function triggerAuth(response) {
-    console.log(' 1- ------------- triggerAuth')
     FB.getLoginStatus(function(response) {
-
-    console.log(' 2- ------------- triggerAuth')
       const {accessToken, userID, signedRequest} = response.authResponse
       const {account_linking_token, redirect_uri} = normal
-      
-    console.log(' 3- ------------- triggerAuth')
-      console.log(response);
 
       if(response.status !== 'connected') 
         return setStatusById('Please log into this app.')
