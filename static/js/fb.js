@@ -16,7 +16,7 @@
       if(response.status !== 'connected') 
         return setStatusById('Please log into this app.')
 
-      // return window.location.replace(`/login/fb-auth?accessToken=${accessToken}&account_linking_token=${account_linking_token}&redirect_uri=${redirect_uri}`);
+      return window.location.replace(`/login/fb-auth?accessToken=${accessToken}&account_linking_token=${account_linking_token}&redirect_uri=${redirect_uri}`);
     })
   }
   
