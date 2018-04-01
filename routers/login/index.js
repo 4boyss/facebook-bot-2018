@@ -11,10 +11,15 @@ router.get('/', (req, res) => {
 })
 
 router.get('/fb-auth', (req, res) => {
+    console.log('-=-=-=-= fb-auth -=-=-=-=')
+
     const {account_linking_token} = req.normal
+    console.log('1-=-=-=-= fb-auth -=-=-=-=')
 
     return verifyLinkingToken(account_linking_token)
         .then(res => {
+            console.log('2 -=-=-=-= fb-auth -=-=-=-=')
+
             const content = `
             <pre> ${JSON.stringify(req.normal, null, 2)}</pre>
             <pre> ${JSON.stringify(res, null, 2)}</pre>
