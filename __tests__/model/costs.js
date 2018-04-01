@@ -89,6 +89,19 @@ describe('cost object', ()=>{
         })
     })
 
+
+    describe('updateById()', ()=>{
+        it('updateById', (done)=>{
+            const payload = {cost: 999}
+            cost.updateById(createdObjId, payload)
+            .then( ()=> cost.list({id: createdObjId}))
+            .then( (obj) => {
+                expect(obj[0].get('cost')).toBe(999)
+                done()
+            })
+        })
+    })
+
     it('remove()', (done)=>{
         cost.remove(createdObjId).then((_o)=>{
             expect(_o.id).toBe(createdObjId)
